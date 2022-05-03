@@ -94,7 +94,7 @@ services:
     restart: always
 " >> docker-compose.yml
 
-GRA_UID=`id -u grafana` GRA_GID=`id -g grafana` docker-compose up -d --env-file
+GRA_UID=`id -u grafana` GRA_GID=`id -g grafana` docker-compose --env-file .env up -d 
 
 docker container logs prometheus
 docker container logs grafana
