@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  mysql:
+    image: mysql:5.7
+    restart: always
+    container_name: mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment: 
+      - MYSQL_ROOT_PASSWORD=${PASSWORD}
+      - MYSQL_DATABASE=test
+      - TZ=${TZ}
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci

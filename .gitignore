@@ -1,0 +1,7 @@
+mysql
+postgres
+node_exporter-1.0.1.linux-amd64
+node_exporter-1.0.1.linux-amd64.tar.gz
+udo systemctl enable node_exporter
+
+.env

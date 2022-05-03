@@ -1,0 +1,36 @@
+version: '3.7'
+
+volumes:
+  prometheus_data:
+    external: true
+  grafana_data:
+    external: true
+
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    network_mode: host
+    volumes:
+      - /data/docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    ports:
+      - 9090:9090
+    restart: always
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    network_mode: host
+    environment:
+      - GF_SECURITY_ADMIN_USER=${USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${PASSWORD}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    depends_on:
+      - prometheus
+    user: "${GRA_UID}:${GRA_GID}"
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+    restart: always
