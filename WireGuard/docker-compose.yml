@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  WireGuard:
+    image: 'linuxserver/wireguard'
+    container_name: WireGuard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Seoul
+      # - SERVERURL=wireguard.domain.com #optional, 사용 중인 DDNS
+      - SERVERPORT=51820 #optional, 사용할 포트
+      - PEERS=4 #optional, Client 수
+      # - PEERDNS=auto #optional, Client DNS
+      # - INTERNAL_SUBNET=10.13.13.0 #optional, VPN 내부 IP 대역
+      # - ALLOWEDIPS=0.0.0.0/0 #optional, 접속 허용 IP 대역
+    volumes:
+      - /config:/config # 연결할 로컬 디렉토리
+      - /lib/modules:/lib/modules # 연결할 로컬 디렉토리
+    ports:
+      - 51820:51820/udp # WireGuard의 포트와 실제 포트 연결
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: always
