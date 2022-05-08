@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+  nextcloud:
+    image: nextcloud
+    restart: unless-stopped
+    container_name: nextcloud
+    ports:
+      - 8080:80
+    volumes:
+      - /mnt/storage1/nextcloud/nextcloud:/var/www/html
+      - /mnt/storage1/nextcloud/apps:/var/www/html/custom_apps
+      - /mnt/storage1/nextcloud/config:/var/www/html/config
+      - /mnt/storage1/nextcloud/data:/var/www/html/data
+      - /mnt/storage1/nextcloud/stheme:/var/www/html/themes
+    environment:
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_DATABASE=${CLOUD_DATABASE}
+      - MYSQL_USER=${CLOUD_USERNAME}
+      - MYSQL_PASSWORD=${CLOUD_PASSWORD}
