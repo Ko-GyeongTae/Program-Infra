@@ -3,7 +3,7 @@ version: '3.7'
 services:
   nextcloud:
     image: nextcloud
-    restart: unless-stopped
+    restart: always
     container_name: nextcloud
     ports:
       - 8080:80

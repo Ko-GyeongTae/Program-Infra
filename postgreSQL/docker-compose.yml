@@ -3,6 +3,7 @@ services:
   postgres:
     image: postgres:10
     container_name: postgres
+    restart: always
     environment:
       - POSTGRES_PASSWORD=${PO_PASSWORD}
       - POSTGRES_USER=root
@@ -15,6 +16,7 @@ services:
   pgadmin:
     container_name: pgadmin4
     image: dpage/pgadmin4
+    restart: always
     environment:
       - PGADMIN_DEFAULT_EMAIL=${PG_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PG_PASSWORD}
