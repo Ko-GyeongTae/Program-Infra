@@ -1,0 +1,11 @@
+# docker run -d --hostname rabbit --name rabbit -p 30000:15672 rabbitmq:3-management
+
+version: '3.7'
+
+services:
+  rabbitmqO:
+    image: rabbitmq:latest
+    restart: always
+    container_name: rabbitMQ
+    ports:
+      - 15672:15672
