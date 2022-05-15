@@ -3,14 +3,23 @@
 version: '3.7'
 
 services:
-  rabbitmqO:
-    image: rabbitmq:management
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
     restart: always
     container_name: rabbitMQ
+    # volumes:
+    #   - ./rabbitmq/etc/:/etc/rabbitmq/
+    #   - ./rabbitmq/data/:/var/lib/rabbitmq/
+    #   - ./rabbitmq/logs/:/var/log/rabbitmq/
     ports:
-      - 15672:15672
-      - 25672:25672 #cluster port
-      - 5672:5672
+      - 15672:15672 # http
+      - 15692:15692 # http/prometheus
+      - 15675:15675 # http/web-mqtt
+      - 25672:25672 # clustering
+      - 1883:1883   # mqtt
+      - 5672:5672   # ampq
     environment:
+      - RABBITMQ_ERLANG_COOKIE=${COOKIE}
       - RABBITMQ_DEFAULT_USER=${USER}
       - RABBITMQ_DEFAULT_PASS=${PASSWORD}
+
